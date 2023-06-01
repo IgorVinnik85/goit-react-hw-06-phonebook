@@ -14,7 +14,7 @@ export const App = () => {
   // });
   // const [filter, setFilter] = useState('');
   const { filter } = useSelector(state => state.filter);
-  const contacts = useSelector(state => state.contacts);
+  const { contacts } = useSelector(state => state.contacts);
 
   const dispatch = useDispatch();
   console.log(contacts);

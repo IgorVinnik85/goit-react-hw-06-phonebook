@@ -15,18 +15,20 @@ const filterReducer = (state = intlState.filterCts, action) => {
   }
 };
 
-const contactsReducer = (state = intlState.phoneCts.contacts, action) => {
-//   console.log(intlState.phoneCts.contacts);
+const contactsReducer = (state = intlState.phoneCts, action) => {
+
   switch (action.type) {
     case 'contacts':
       return {
         ...state,
-        contacts: action.payload,
+          contacts: action.payload,
+        
       };
 
     default:
       return state;
   }
+   
 };
 
 export const reducer = combineReducers({

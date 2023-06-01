@@ -6,6 +6,7 @@ import { ContactsPhonebook } from './ContactsPhonebook/ContactsPhonebook';
 import { nanoid } from 'nanoid';
 import './store/store';
 import { useDispatch, useSelector } from 'react-redux';
+import { actionFilter, actionContacts } from './store/actions';
 
 export const App = () => {
   // const [contacts, setContacts] = useState(() => {
@@ -36,12 +37,12 @@ export const App = () => {
     };
 
     // setContacts([objData, ...contacts]);
-    dispatch({ type: 'contacts', payload: [objData, ...contacts] });
+    dispatch(actionContacts([objData, ...contacts]));
   };
 
   const findName = event => {
     // setFilter(event.target.value);
-    dispatch({ type: 'filter', payload: event.target.value });
+    dispatch(actionFilter(event.target.value ));
   };
 
   const filteredName = () => {
@@ -54,10 +55,10 @@ export const App = () => {
     // setContacts(prevContacts =>
     //   prevContacts.filter(contact => contact.id !== contactId)
     // );
-    dispatch({
-      type: 'contacts',
-      payload: contacts.filter(contact => contact.id !== contactId),
-    });
+    const filteredContacts = contacts.filter(
+      contact => contact.id !== contactId
+    );
+    dispatch(actionContacts(filteredContacts));
   };
 
   const filteredArray = filteredName();

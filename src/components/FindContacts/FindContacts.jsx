@@ -1,12 +1,8 @@
-import PropTypes from 'prop-types'
-import {  useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 export const FindContacts = ({ onInput }) => {
-  const {
-    filter: { filter },
-  } = useSelector(state => state);
-  // console.log(filter);
-
+  const filter = useSelector(state => state.filter);
   return (
     <div>
       <h3>Find contacts by name</h3>

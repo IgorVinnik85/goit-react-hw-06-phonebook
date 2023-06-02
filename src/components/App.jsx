@@ -2,23 +2,15 @@ import { useEffect } from 'react';
 import { FindContacts } from './FindContacts/FindContacts';
 import { FormPhonebook } from './FormPhonebook/FormPhonebook';
 import { ContactsPhonebook } from './ContactsPhonebook/ContactsPhonebook';
-// import StaticContact from '../components/ContactsPhonebook/StaticContact.json';
 import { nanoid } from 'nanoid';
-import './store/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionFilter, actionContacts } from './store/actions';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { fillterContacts, addContacts, deleteContacts } from '../redux/slice';
 
 export const App = () => {
-  // const [contacts, setContacts] = useState(() => {
-  //   const storedContacts = JSON.parse(localStorage.getItem('contacts'));
-  //   return storedContacts ? storedContacts : StaticContact;
-  // });
-  // const [filter, setFilter] = useState('');
-  const { filter } = useSelector(state => state.filter);
-  const { contacts } = useSelector(state => state.contacts);
 
   const dispatch = useDispatch();
-  console.log(contacts);
+  const {filter, contacts} = useSelector(state => state);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -30,19 +22,26 @@ export const App = () => {
       return;
     }
 
-    const objData = {
-      name: name,
-      number: number,
-      id: nanoid(),
-    };
+    // const objData = {
+    //   name: name,
+    //   number: number,
+    //   id: nanoid(),
+    // };
 
     // setContacts([objData, ...contacts]);
-    dispatch(actionContacts([objData, ...contacts]));
+
+    dispatch(
+      addContacts({
+        name: name,
+        number: number,
+        id: nanoid(),
+      })
+    );
   };
 
   const findName = event => {
     // setFilter(event.target.value);
-    dispatch(actionFilter(event.target.value ));
+    dispatch(fillterContacts(event.target.value));
   };
 
   const filteredName = () => {
@@ -55,10 +54,7 @@ export const App = () => {
     // setContacts(prevContacts =>
     //   prevContacts.filter(contact => contact.id !== contactId)
     // );
-    const filteredContacts = contacts.filter(
-      contact => contact.id !== contactId
-    );
-    dispatch(actionContacts(filteredContacts));
+    dispatch(deleteContacts(contactId));
   };
 
   const filteredArray = filteredName();

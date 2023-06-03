@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import StaticContact from '../components/ContactsPhonebook/StaticContact';
-const storedContacts = JSON.parse(localStorage.getItem('contacts'));
 
 export const filterSlice = createSlice({
   name: 'filter',
@@ -12,16 +11,17 @@ export const filterSlice = createSlice({
   },
 });
 
-
 export const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: storedContacts ? storedContacts : StaticContact,
+  initialState: { items: StaticContact },
   reducers: {
     addContacts(state, action) {
-      return [...state, action.payload];
+      state.items.push(action.payload);
     },
     deleteContacts(state, action) {
-      return state.filter(contact => contact.id !== action.payload);
+      state.items = state.items.filter(
+        contact => contact.id !== action.payload
+      );
     },
   },
 });

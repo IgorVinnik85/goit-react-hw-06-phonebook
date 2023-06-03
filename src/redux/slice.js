@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import StaticContact from '../components/ContactsPhonebook/StaticContact';
+const storedContacts = JSON.parse(localStorage.getItem('contacts'));
 
 export const filterSlice = createSlice({
   name: 'filter',
@@ -11,7 +12,6 @@ export const filterSlice = createSlice({
   },
 });
 
-const storedContacts = JSON.parse(localStorage.getItem('contacts'));
 
 export const contactsSlice = createSlice({
   name: 'contacts',

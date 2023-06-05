@@ -28,4 +28,3 @@ ContactsPhonebook.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object.isRequired),
   deleteContact: PropTypes.func.isRequired,
 };
-////////////
